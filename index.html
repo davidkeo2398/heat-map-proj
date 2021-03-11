@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript" src="./heatmap.js-master/build/heatmap.js"></script>
+
+</head>
+
+<body>
+    <h1>Multiply Alpha</h1>
+    <div id='container' style='position: relative; height: 742px'>
+        <canvas id="heatMap" width="1024" height="742" style="position:absolute; left: 0; top: 0"></canvas>
+    </div>
+    <script>
+        // var config = {
+        //     container: document.getElementById('container'),
+        //     radius: 10,
+        //     maxOpacity: .5,
+        //     minOpacity: 0,
+        //     blur: .50
+        // };
+        // // create heatmap with configuration
+        // var heatmapInstance = h337.create(config);
+        // var dataPoint = [
+        //     {
+        //         x: 100, // x coordinate of the datapoint, a number
+        //         y: 5, // y coordinate of the datapoint, a number
+        //         value: 10000000000000000000000000000 // the value at datapoint(x, y)
+        //     },
+        //     {
+        //         x: 100, // x coordinate of the datapoint, a number
+        //         y: 2, // y coordinate of the datapoint, a number
+        //         value: 9000 // the value at datapoint(x, y)
+        //     },
+        // ];
+        // heatmapInstance.addData(dataPoint);
+
+        // heatmapInstance.setData(dataPoint);
+        var heatmapInstance = h337.create({
+            // only container is required, the rest will be defaults
+            container: document.getElementById('container'),
+
+            radius: 20,
+            maxOpacity: .7,
+            minOpacity: 0,
+            blur: .50,
+            backgroundColor: 'rgba(0,0,0,.95)',
+            // custom gradient colors
+            gradient: {
+                // enter n keys between 0 and 1 here
+                // for gradient color customization
+                '.5': 'yellow',
+                '.8': 'red',
+                '.95': 'white'
+            },
+        });
+
+        // now generate some random data
+        var points = [];
+        var max = 0;
+        var width = 840;
+        var height = 400;
+        var len = 200;
+
+        while (len--) {
+            var val = Math.floor(Math.random() * 100);
+            console.log(val);
+            // var val = 1000;
+            // for(var i = val;i>0;i--){
+            //     val = i;
+            // }
+            max = Math.max(max, val);
+            var point = {
+                x: Math.floor(Math.random() * width),
+                y: Math.floor(Math.random() * height),
+                value: val
+            };
+            points.push(point);
+        }
+        // heatmap data format
+        var data = {
+            max: max,
+            data: points
+        };
+        // if you have a set of datapoints always use setData instead of addData
+        // for data initialization
+        heatmapInstance.setData(data);
+    </script>
+</body>
+
+</html>
